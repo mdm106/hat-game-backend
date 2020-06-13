@@ -18,6 +18,8 @@ class Categories extends Controller
         return Category::all();
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -35,9 +37,9 @@ class Categories extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        //
+        return $category;
     }
 
     /**
