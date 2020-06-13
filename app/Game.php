@@ -23,6 +23,14 @@ class Game extends Model
         return $this;
     }
 
+    public function completeGame(bool $finish) : Game
+    {
+        $this->complete =$finish;
+        $this->save();
+        return $this;
+    }
+    
+
     //function to return winner
     public function winner() : string
     {
