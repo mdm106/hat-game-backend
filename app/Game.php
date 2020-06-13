@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {   
+
+    protected $fillable = ["team_1", "team_2", "score_1", "score_2", "complete"];
     //function to increase scores
     public function score(int $team) : Game
     {
