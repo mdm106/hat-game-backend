@@ -26,7 +26,12 @@ class Games extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //get all the request data
+        //returns an array of all the data the user sent
+        $data = $request->all();
+
+        //create category with data and store in DB and return it as JSON
+        return Game::create($data);
     }
 
     /**
