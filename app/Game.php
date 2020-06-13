@@ -8,6 +8,12 @@ class Game extends Model
 {   
 
     protected $fillable = ["team_1", "team_2", "score_1", "score_2", "complete"];
+
+    protected $attributes = [
+        "score_1" => 0,
+        "score_2" => 0,
+        "complete" => false,
+    ];
     //function to increase scores
     public function score(int $team) : Game
     {
