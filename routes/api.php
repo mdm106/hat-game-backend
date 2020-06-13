@@ -35,4 +35,5 @@ Route::group(["prefix" => "/games"], function() {
     Route::post("", "API\\Games@store");
     Route::delete("/{game}", "API\\Games@destroy");
     Route::patch("/{game}/score", "API\\Games@score");
+    Route::patch("/{game}/complete", "API\\Games@complete");
 });
