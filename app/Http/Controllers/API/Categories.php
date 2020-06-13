@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Resources\API\CategoryResourc;
 use App\Category;
 
 class Categories extends Controller
@@ -33,7 +34,9 @@ class Categories extends Controller
         $data = $request->all();
 
         //create category with data and store in DB and return it as JSON
-        return Category::create($data);
+        $category = Category::create($data);
+
+        return new CategoryResourc($category);
     }
 
     /**
@@ -44,7 +47,7 @@ class Categories extends Controller
      */
     public function show(Category $category)
     {
-        return $category;
+        return new CategoryResourc($category);
     }
 
     /**
@@ -56,7 +59,7 @@ class Categories extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
