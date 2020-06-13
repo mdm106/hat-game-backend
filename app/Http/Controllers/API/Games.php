@@ -2,9 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Http\Resources\Json\ResourceCollection;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Game;
+
+use App\Http\Requests\GameRequest;
+use App\Http\Requests\GameScoreComplete;
+use App\Http\Requests\GameScoreRequest;
+
+use App\Http\Resources\API\GameResource;
 
 class Games extends Controller
 {
@@ -15,7 +23,9 @@ class Games extends Controller
      */
     public function index()
     {
-        return Game::all();
+        $games = Game::all();
+
+        return GameResource::collection($games);
     }
 
     /**
@@ -30,8 +40,10 @@ class Games extends Controller
         //returns an array of all the data the user sent
         $data = $request->all();
 
+        $game = Game::create($data);
+
         //create category with data and store in DB and return it as JSON
-        return Game::create($data);
+        return new GameResource($game);
     }
 
     /**
@@ -42,7 +54,7 @@ class Games extends Controller
      */
     public function show(Game $game)
     {
-        return $game;
+        return new GameResource($game);
     }
 
     /**
@@ -52,9 +64,21 @@ class Games extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function score(GameScoreRequest $request, Game $game)
     {
-        //
+        if(!$game->complete) {
+            $game->score($request->get("team"));
+        }
+
+        return new GameResource($game);
+    }
+
+    public function complete(GameScoreComplete $request, Game $game)
+    {
+        
+        $game->completeGame($request->get("finish"));
+
+        return new GameResource($game);
     }
 
     /**
